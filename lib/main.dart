@@ -1,7 +1,11 @@
-import 'package:asyncval/search_screen.dart';
-import 'package:asyncval/todos/todo_notifier.dart';
+import 'package:asyncval/routes.dart';
+import 'package:asyncval/todo_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
+
+
 
 void main (){
 
@@ -10,63 +14,15 @@ void main (){
 
 
 
-class Home extends StatelessWidget {
+class Home extends ConsumerWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(body: SafeArea(child: TodoListView()))
-    );
+  Widget build(BuildContext context, ref) {
+    final route = ref.watch(routesProvider);
+      return MaterialApp.router(
+        routerConfig: route,
+      );
   }
 }
 
-
-
-
-class TodoListView extends ConsumerWidget {
-  const TodoListView({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // rebuild the widget when the todo list changes
-    final asyncTodos = ref.watch(todoNotifierProvider);
-
-    // Let's render the todos in a scrollable list view
-
-    ref.listen(todoNotifierProvider, (previous, next) {
-      if(next.hasValue && next.value!.isError){
-           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-               duration: Duration(seconds: 1),
-               content: Text(next.value!.errMsg)));
-      }
-    });
-
-    return Stack(
-      children: [
-        Center(
-          child: switch (asyncTodos) {
-            AsyncData(:final value) => ListView.builder(
-               itemCount: value.todos.length,
-              itemBuilder: (context, index){
-                 final todo = value.todos[index];
-                 return CheckboxListTile(
-                   value: todo.completed,
-                   // When tapping on the todo, change its completed status
-                   onChanged: (value) {
-                     ref.read(todoNotifierProvider.notifier).toggle(todo, index);
-                   },
-                   title: asyncTodos.isRefreshing && value.index == index? Text('Only This'): Text(todo.description),
-                 );
-              },
-
-            ),
-            AsyncError(:final error) => Text('Error: $error'),
-            _ => const Center(child: CircularProgressIndicator()),
-          },
-        ),
-        //if(asyncTodos.isRefreshing) Center(child: CircularProgressIndicator())
-      ],
-    );
-  }
-}

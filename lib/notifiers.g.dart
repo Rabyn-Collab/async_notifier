@@ -1,25 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'todo_notifier.dart';
+part of 'notifiers.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$todoNotifierHash() => r'223ce5b714828822815c14ccf2e4ddf0b54c3056';
+String _$counterHash() => r'e9adfc623d7c594e10514551afdd66662f30cd8b';
 
-/// See also [TodoNotifier].
-@ProviderFor(TodoNotifier)
-final todoNotifierProvider =
-    AutoDisposeAsyncNotifierProvider<TodoNotifier, TodoState>.internal(
-  TodoNotifier.new,
-  name: r'todoNotifierProvider',
+/// See also [Counter].
+@ProviderFor(Counter)
+final counterProvider = AutoDisposeAsyncNotifierProvider<Counter, int>.internal(
+  Counter.new,
+  name: r'counterProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$todoNotifierHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$counterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$TodoNotifier = AutoDisposeAsyncNotifier<TodoState>;
+typedef _$Counter = AutoDisposeAsyncNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

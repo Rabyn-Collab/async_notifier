@@ -1,4 +1,3 @@
-import 'package:asyncval/todos/todo.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'todo_state.freezed.dart';
